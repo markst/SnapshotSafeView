@@ -56,10 +56,12 @@ final class ScreenshotInvincibleContainer: UITextField {
             return
         }
         switch type(of: view.self).description() {
-        case "_UITextFieldCanvasView":
-            break // iOS 14.x
-        case "_UITextLayoutCanvasView":
-            break // iOS 15.0
+        case "_UITextFieldCanvasView": // iOS 14.1
+            view.layer.perform(Selector(("setDisableUpdateMask:")), with: 0x12)
+            break
+        case "_UITextLayoutCanvasView": // iOS 15.0
+            view.layer.perform(Selector(("setDisableUpdateMask:")), with: 0x12)
+            break
         default:
             return
         }

@@ -52,7 +52,15 @@ final class ScreenshotInvincibleContainer: UITextField {
     }
     
     private func appendContent(to view: UIView?) {
-        guard let view = view, type(of: view.self).description() == "_UITextLayoutCanvasView" else {
+        guard let view = view else {
+            return
+        }
+        switch type(of: view.self).description() {
+        case "_UITextFieldCanvasView":
+            break // iOS 14.x
+        case "_UITextLayoutCanvasView":
+            break // iOS 15.0
+        default:
             return
         }
         view.addSubview(content)
